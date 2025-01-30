@@ -1,0 +1,95 @@
+/*
+14. Magic Potion Identifier
+*/
+import java.util.Scanner;
+
+public class MagicPotionIdentifier{
+public static void main(String[] s) {
+long powerLevel = new Scanner(System.in).nextLong();
+long cubeRoot = (long) Math.round(Math.cbrt(powerLevel));
+
+if(cubeRoot * cubeRoot * cubeRoot == powerLevel){
+System.out.println("YES");
+}else{
+System.out.println("NO");
+}
+}
+}
+
+/*
+15. Sneaky outcomes
+*/
+
+import java.util.HashSet;
+
+public class SneakyOutcomes {
+    public static void main(String[] args) {
+        int[] outcomes = {123456, 234567, 123347, 456789, 567890, 678901, 789012, 890123, 901234, 112233, 223344, 334455, 789012, 222234, 123347};
+        HashSet<Integer> seen = new HashSet<>();
+        int[] result = new int[2];
+        int index = 0;
+
+        for (int outcome : outcomes) {
+            if (seen.contains(outcome)) {
+                result[index++] = outcome;
+            } else {
+                seen.add(outcome);
+            }
+        }
+
+        System.out.println("[" + result[0] + ", " + result[1] + "]");
+    }
+}
+
+
+/*
+16. Reformat String to Alternating Case
+*/
+
+public class ReformatString {
+    public static void main(String[] args) {
+        String input = "Za^B8g@E2jH*kWl!MoPqXr7YvT1c$Fs3Ud9IwZ&yX0pLkV6sHqN^tB4rA+oZ%gFj";
+        StringBuilder result = new StringBuilder();
+        boolean toUpper = true;
+
+        for (char c : input.toCharArray()) {
+            if (Character.isLetter(c)) {
+                result.append(toUpper ? Character.toUpperCase(c) : Character.toLowerCase(c));
+                toUpper = !toUpper;
+            } else {
+                result.append(c);
+            }
+        }
+
+        System.out.println(result);
+    }
+}
+
+
+/*
+17. Organizing Books into Identical Sets
+*/
+
+import java.util.HashMap;
+
+public class OrganizeBooks {
+    public static void main(String[] args) {
+        int[] shelf = {1234567, 1234567, 2345678, 2345678, 3456789, 3456789, 1234567, 2345678, 3456789, 4567890, 4567890, 5678901, 5678901, 6789012, 6789012, 1234567, 2345678, 3456789, 4567890, 5678901, 4567890, 5678901};
+        HashMap<Integer, Integer> bookCounts = new HashMap<>();
+
+        for (int book : shelf) {
+            bookCounts.put(book, bookCounts.getOrDefault(book, 0) + 1);
+        }
+
+        int gcd = 0;
+        for (int count : bookCounts.values()) {
+            gcd = gcd == 0 ? count : findGCD(gcd, count);
+        }
+
+        System.out.println(gcd > 1 ? "YES" : "NO");
+    }
+
+    private static int findGCD(int a, int b) {
+        return b == 0 ? a : findGCD(b, a % b);
+    }
+}
